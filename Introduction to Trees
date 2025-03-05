@@ -1,0 +1,12 @@
+//Given an integer i. Print the maximum number of nodes on level i of a binary tree.
+
+
+class Solution {
+    static int countNodes(int i) {
+        int ans = 1;
+        for(int j = 1;j<i;j++){
+            ans = 2*ans;
+        }
+        return ans;
+    }
+}
