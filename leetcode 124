@@ -1,0 +1,32 @@
+//Binary Tree Maximum Path Sum
+//A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+//The path sum of a path is the sum of the node's values in the path.
+//Given the root of a binary tree, return the maximum path sum of any non-empty path.
+
+
+
+
+class Solution {
+    public int helper(TreeNode root, int[] ans) {
+        if (root == null) return 0;
+
+        // Recursively compute max path sum from left and right subtrees
+        int left = Math.max(0, helper(root.left, ans)); // Ignore negative sums
+        int right = Math.max(0, helper(root.right, ans));
+
+        // Calculate max path sum considering the current node
+        ans[0] = Math.max(ans[0], left + right + root.val);
+
+        // Return max gain if we continue the path from this node
+        // Return the maximum sum considering
+        // only one branch (either left or right)
+        // along with the current nod
+        return Math.max(left, right) + root.val;
+    }
+
+    public int maxPathSum(TreeNode root) {
+        int[] ans = {Integer.MIN_VALUE}; // Initialize with lowest possible value
+        helper(root, ans);
+        return ans[0];
+    }
+}
