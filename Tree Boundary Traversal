@@ -1,0 +1,48 @@
+class Solution {
+    boolean isLeaf(Node node){
+        return (node.left == null && node.right == null);
+    }
+    void leftBoundary(Node node,ArrayList<Integer> ans){
+        if(node==null) return;
+        while (node != null) {
+            if (!isLeaf(node)) ans.add(node.data);
+            node = (node.left != null) ? node.left : node.right;  // Prefer left, if absent go right
+        }
+    }
+    void rightBoundary(Node node ,ArrayList<Integer> ans){
+        if(node==null) return ;
+         List<Integer> temp = new ArrayList<>();
+        while (node != null) {
+            if (!isLeaf(node)) temp.add(node.data);
+            node = (node.right != null) ? node.right : node.left;  // Prefer right, if absent go left
+        }
+        Collections.reverse(temp);  // Reverse to get bottom-up order
+        ans.addAll(temp);
+        
+    }
+    void addLeaves(Node node,ArrayList<Integer> ans){
+        if(node==null) return;
+        if(isLeaf(node)) {
+            ans.add(node.data);
+            return; // Stop further recursion once a leaf is found
+        }
+        if(isLeaf(node)) ans.add(node.data);
+        addLeaves(node.left,ans);
+        addLeaves(node.right,ans);
+        
+    }
+    ArrayList<Integer> boundaryTraversal(Node node) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if (node == null) return ans; // Handle empty tree case
+
+        if (!isLeaf(node)) ans.add(node.data); // Add root if it's not a leaf
+
+        leftBoundary(node.left, ans); // Collect left boundary
+        addLeaves(node, ans); // Collect leaf nodes
+        rightBoundary(node.right, ans); // Collect right boundary in reverse order
+        
+        
+        return ans;
+        
+    }
+}
