@@ -1,0 +1,24 @@
+class Solution {
+    int findlvl(Node root){
+        if(root==null) return 0;
+        int lvl = 1 + Math.max(findlvl(root.left),findlvl(root.right));
+        return lvl;
+    }
+    void DFS(Node root,int level,ArrayList<Integer> ans){ //any  traversal
+        if(root==null) return;
+        ans.set(level,root.data);//Important
+        DFS(root.right,level+1,ans);
+        DFS(root.left,level+1,ans);
+        
+        
+    }
+    ArrayList<Integer> leftView(Node root) {
+        int n = findlvl(root);
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(int i = 0;i<n;i++){
+            ans.add(0);
+        }
+        DFS(root,0,ans);
+        return ans;
+    }
+}
