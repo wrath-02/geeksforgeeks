@@ -1,3 +1,7 @@
+
+
+// User function Template for Java
+
 class Solution {
     /*class Node {
         int data;
@@ -54,19 +58,7 @@ class Solution {
         visited.put(start, true);
         int time = -1;  
 
-                 
-                }
-                // Visit parent
-                if (parent_track.containsKey(curr) && !visited.containsKey(parent_track.get(curr))) {
-                    q.add(parent_track.get(curr));
-                    visited.put(parent_track.get(curr), true);
-                }
-            }
-
-        }
-        return time;
-    }
-}       while (!q.isEmpty()) {
+        while (!q.isEmpty()) {
             int size = q.size();
             time++;
 
@@ -83,4 +75,16 @@ class Solution {
                 if (curr.right != null && !visited.containsKey(curr.right)) {
                     q.add(curr.right);
                     visited.put(curr.right, true);
-    
+                    
+                }
+                // Visit parent
+                if (parent_track.containsKey(curr) && !visited.containsKey(parent_track.get(curr))) {
+                    q.add(parent_track.get(curr));
+                    visited.put(parent_track.get(curr), true);
+                }
+            }
+
+        }
+        return time;
+    }
+}
