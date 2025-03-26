@@ -1,0 +1,36 @@
+class Pair{
+    int lvl;
+    Node node;
+    Pair(int lvl ,Node node){
+        this.lvl = lvl;
+        this.node=  node;
+    }
+}
+
+class Solution
+{
+    //Function to return a list containing the bottom view of the given tree.
+    public ArrayList <Integer> bottomView(Node root)
+    {
+        ArrayList <Integer> ans = new ArrayList<>();
+      Queue<Pair> q = new LinkedList<>();
+      TreeMap<Integer,Integer> mp = new TreeMap<>();
+      if(root==null) return new ArrayList<>();
+      q.offer(new Pair(0,root));
+      while(q.size()>0){
+        Pair temp = q.remove();
+        int lvl = temp.lvl;
+        Node node = temp.node;
+        mp.put(lvl,node.data);
+        if(node.left!=null) q.add(new Pair(lvl-1,node.left));
+        if(node.right!=null) q.add(new Pair(lvl+1,node.right));
+        
+      }
+      for(int key : mp.keySet()){
+        ans.add(mp.get(key));
+      }
+      
+       return ans;
+
+    }
+}
