@@ -1,0 +1,11 @@
+class Solution {
+    public static int kthSmallest(int[] arr, int k) {
+        // Your code here
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for(int ele : arr){
+            pq.add(ele);
+            if(pq.size() > k) pq.remove();
+        }
+        return pq.peek();
+    }
+}
