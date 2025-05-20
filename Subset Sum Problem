@@ -1,0 +1,28 @@
+class Solution {
+    static boolean helper(int i ,int[] arr ,int sum ,int[][] dp){
+        if(i==arr.length){
+            if(sum==0) return true;
+            else return false;
+        }
+        if(dp[i][sum]!=-1) return dp[i][sum]==1;
+        
+        boolean ans = false;
+        
+        boolean skip = helper(i+1 , arr ,sum ,dp);
+        if(sum<arr[i]) ans = skip;
+        else{
+            boolean pick = helper(i+1,arr,sum-arr[i],dp);
+            ans = pick||skip;
+        }
+        dp[i][sum] = (ans==true) ? 1 : 0;
+        return ans;
+    }
+    static Boolean isSubsetSum(int arr[], int sum) {
+        // code here
+        int[][] dp = new int[arr.length][sum+1];
+        for(int i = 0;i < arr.length ;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        return helper(0,arr,sum,dp);
+    }
+}
