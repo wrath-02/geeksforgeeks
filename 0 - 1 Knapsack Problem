@@ -1,3 +1,4 @@
+//Method 1 : Memoization
 class Solution {
     static int helper(int idx , int W, int[] val , int[]wt ,int[][] dp){
         if(idx == wt.length) return 0;
@@ -22,3 +23,28 @@ class Solution {
         return helper(0,W,val,wt,dp);
     }
 }
+
+
+//Method 2 : Tabulation
+class Solution {
+    static int knapsack(int W, int val[], int wt[]) {
+        // code here
+        int n = val.length;
+        
+        int[][] dp = new int[n][W+1];
+        
+        for(int i = 0; i< dp.length ;i++){
+            for(int c = 0;c < dp[0].length ;c++){
+                int skip = (i>0) ? dp[i-1][c] : 0;
+                if(wt[i] > c) dp[i][c] = skip;
+                else{
+                    int pick = val[i];
+                    pick += (i>0) ? dp[i-1][c-wt[i]] : 0;
+                    dp[i][c] = Math.max(skip , pick);
+                }
+            }
+        }
+        return dp[n-1][W];
+    }
+}
+
