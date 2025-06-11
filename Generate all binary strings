@@ -1,0 +1,22 @@
+class Solution {
+    public static void helper(String s ,int n , List<String> ans){
+        int len = s.length();
+        
+        if(len == n){
+            ans.add(s);    
+            return;
+        }
+        helper(s+"0" ,n ,ans);
+        
+        if(s.isEmpty() || s.charAt(len-1)!='1'){
+            helper(s+"1" , n , ans);   
+        } 
+    }
+    public static List<String> generateBinaryStrings(int n) {
+        // code here
+        List<String> ans = new ArrayList<>();
+        helper("",n,ans);
+        return ans;
+    }
+    
+}
