@@ -1,0 +1,23 @@
+class Solution {
+    public int maximumSumSubarray(int[] arr, int k) {
+        // Code here
+        int n = arr.length;
+        int sum = 0;
+        int l = 0;
+        int r = 0;
+        while(r < k){
+            sum += arr[r]; 
+            r++;
+        }
+        int maxSum = sum;
+        while(r < n){
+            sum += arr[r];
+            sum -= arr[l];
+            maxSum = Math.max(maxSum , sum);
+            l++;
+            r++;
+        }
+        return maxSum;
+        
+    }
+}
