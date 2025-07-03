@@ -1,0 +1,65 @@
+
+//Method 1 : Memoization
+class Solution {
+    int minCost(int[] height) {
+        // code here
+        int n = height.length;
+        int[] dp = new int[n+1];
+        Arrays.fill(dp,-1);
+        return helper(height,n-1,dp);
+    }
+    int helper(int[] arr ,int i,int[] dp){
+        if(i == 0) return 0;
+        if(dp[i]!=-1) return dp[i];
+        int twoJump = Integer.MAX_VALUE;
+        int oneJump = helper(arr,i-1,dp) + Math.abs(arr[i] -arr[i-1]);
+        if(i>1) twoJump = helper(arr,i-2,dp) + Math.abs(arr[i] -arr[i-2]);
+        
+        return dp[i] = Math.min(oneJump,twoJump);
+        
+    }    
+}
+
+
+//Method 2 : Tabulation
+class Solution {
+    int minCost(int[] height) {
+       
+        int n = height.length;
+        int[] dp = new int[n];
+        
+        dp[0] = 0;
+        
+        for(int i =1 ; i< n ;i++){
+            int oneJump = dp[i-1] + Math.abs(height[i] - height[i-1]);
+            int twoJump = Integer.MAX_VALUE;
+            if(i> 1) twoJump = dp[i-2] + Math.abs(height[i] - height[i-2]);
+            dp[i] = Math.min(oneJump ,twoJump);
+        }
+        
+        return dp[n-1];
+    }
+    
+}
+
+//Method 3 : Space Optimization
+class Solution {
+    int minCost(int[] height) {
+        int n = height.length;
+        
+        int prev = 0, prev2 = 0;
+        
+        for(int i =1 ; i< n ;i++){
+            int oneJump = prev + Math.abs(height[i] - height[i-1]);
+            int twoJump = Integer.MAX_VALUE;
+            if(i> 1) twoJump = prev2 + Math.abs(height[i] - height[i-2]);
+            int curr = Math.min(oneJump ,twoJump);
+            
+            prev2 = prev;
+            prev = curr;
+        }
+        
+        return prev;
+    }
+    
+}
